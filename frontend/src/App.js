@@ -25,12 +25,15 @@ function App() {
   const fetchContacts = async (page = 1) => {
     try {
       setLoading(true);
+      console.log('Fetching contacts from:', `${config.API_URL}/api/contacts?page=${page}&limit=10`);
       const response = await axios.get(`${config.API_URL}/api/contacts?page=${page}&limit=10`);
+      console.log('Response received:', response.data);
       setContacts(response.data.contacts);
       setPagination(response.data.pagination);
     } catch (error) {
       console.error('Error fetching contacts:', error);
-      setMessage('Error fetching contacts');
+      console.error('Error details:', error.response?.data);
+      setMessage(`Error fetching contacts: ${error.response?.data?.error || error.message}`);
     } finally {
       setLoading(false);
     }
@@ -102,7 +105,9 @@ function App() {
 
     try {
       setLoading(true);
+      console.log('Adding contact to:', `${config.API_URL}/api/contacts`);
       const response = await axios.post(`${config.API_URL}/api/contacts`, formData);
+      console.log('Contact added successfully:', response.data);
       
       // Add new contact to the list
       setContacts(prev => [response.data, ...prev]);
@@ -116,6 +121,7 @@ function App() {
       
     } catch (error) {
       console.error('Error adding contact:', error);
+      console.error('Error details:', error.response?.data);
       setMessage(error.response?.data?.error || 'Error adding contact');
     } finally {
       setLoading(false);
