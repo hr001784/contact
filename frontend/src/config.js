@@ -1,6 +1,6 @@
 const config = {
   API_URL: process.env.NODE_ENV === 'production' 
-    ? 'https://your-backend-url.herokuapp.com' // Replace with your actual backend URL
+    ? 'https://YOUR_ACTUAL_BACKEND_URL.herokuapp.com' // Replace with your actual backend URL
     : 'http://localhost:5000'
 };
 
